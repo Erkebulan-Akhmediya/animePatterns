@@ -1,0 +1,8 @@
+form {
+    width: 30%;
+    height: 40vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

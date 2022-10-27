@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Users
+    body 
+        a(href="/admin") Admin 
+        a(href="/admin/users") Users 
+
+        h1 List of All Users 
+        ol 
+            each val, index in users
+                li
+                    ul 
+                        li= "First Name: " + val.firstName 
+                        li= "Last Name: " + val.lastName 
+                        li= "Email: " + val.email 
+                    a(href="/admin/users/update/" + index) Update 
+                    form(action="/admin/users/delete/" + index, method="post") 
+                        input(type="submit", value="Delete")
+

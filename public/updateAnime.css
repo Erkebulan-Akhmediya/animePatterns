@@ -1,0 +1,25 @@
+#update {
+    width: 30%;
+    height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#delete {
+    width: 30%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#episodes {
+    width: 30%;
+    height: 30vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}

@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title= anime.name
+    body 
+        a(href="/profile") Profile  
+        a(href="/catalogue") Catalogue   
+        h1= anime.name 
+        h3 Description 
+        p= anime.description 
+
+        form(action="/catalogue/" + animeID + "/like", method="post") 
+            input(type="submit", value="Like")
+
+        form(action="/catalogue/" + animeID + "/planning", method="post") 
+            input(type="submit", value="Plan to Watch")
+
+        ul 
+            each val in anime.episodes 
+                li= "Season " + val.season + " Episode " + val.number
+                a(href="/catalogue/" + animeID + "/" + val._id) Watch

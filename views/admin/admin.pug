@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Admin 
+    body 
+        a(href="/admin") Admin 
+        a(href="/admin/users") Users 
+        h1 welcome to admin page 
+        ul 
+            each val in anime  
+                li 
+                    a(href="/admin/update/" + val._id)= val.name
+        a(href="/admin/add") Add Anime 
