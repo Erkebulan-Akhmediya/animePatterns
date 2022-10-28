@@ -4,16 +4,6 @@ import Users from '../models/Users'
 import multer from 'multer'
 import fs from 'fs'
 
-const storage = multer.diskStorage({
-    destination: async function(req, file, cb) {
-        const anime = await Anime.findOne({ _id: req.params.id })
-        cb(null, `episodes/${anime?.name}`)
-    },
-    filename: function(req, res, cb) {
-        cb(null, `season${req.body.seasonNumber}-episode${req.body.episodeNumber}.mp4`)
-    }
-})
-const upload = multer({ storage: storage })
 const AdminRouter = express.Router()
 
 class adminController {
@@ -34,11 +24,11 @@ class adminController {
 
     public async postAddAnime(req: Request, res: Response) {
         try {
+            fs.mkdirSync(`./episodes/${req.body.name}`)
             await Anime.create({
                 name: req.body.name, 
                 description: req.body.description,
             })
-            fs.mkdirSync(`./episodes/${req.body.name}`)
             res.redirect('/admin')
         } catch {
             console.log('cannot add anime')
@@ -56,15 +46,23 @@ class adminController {
     }
 
     public async postUpdateAnime(req: Request, res: Response) {
-        const animeID: any = req.params.id
-        const anime = await Anime.findOne({ _id: animeID })
+        try {
+            const animeID: any = req.params.id
+            const anime = await Anime.findOne({ _id: animeID })
         
-        await Anime.findOneAndUpdate({ name: anime?.name }, {
-            name: req.body.name, 
-            description: req.body.description,
-        })
-    
-        res.redirect('/admin')
+            
+            if (anime?.name != req.body.name) {
+                fs.renameSync(`./episodes/${anime?.name}`, `./episodes/${req.body.name}`)
+            } 
+            await Anime.findOneAndUpdate({ _id: animeID }, {
+                name: req.body.name, 
+                description: req.body.description,
+            })
+
+            res.redirect('/admin')
+        } catch {
+            console.log('cannot update anime')
+        }
     }
 
     public async addEpisode(req: Request, res: Response) {

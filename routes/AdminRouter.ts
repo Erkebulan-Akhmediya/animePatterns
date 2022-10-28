@@ -4,7 +4,18 @@ import Users from '../models/Users'
 import multer from 'multer'
 import fs from 'fs'
 
-const storage = multer.diskStorage({
+const imageStorage = multer.diskStorage({
+    destination: async function (req, file, cb) {
+        const anime = await Anime.findOne({ _id: req.params.id })
+        cb(null, `public/images/`)
+    },
+    filename: async function(req, res, cb) {
+        const anime = await Anime.findOne({ _id: req.params.id })
+        cb(null, `${anime?.name}.jpg`)
+    }
+})
+
+const episodeStorage = multer.diskStorage({
     destination: async function(req, file, cb) {
         const anime = await Anime.findOne({ _id: req.params.id })
         cb(null, `episodes/${anime?.name}`)
@@ -13,7 +24,8 @@ const storage = multer.diskStorage({
         cb(null, `season${req.body.seasonNumber}-episode${req.body.episodeNumber}.mp4`)
     }
 })
-const upload = multer({ storage: storage })
+const uploadEpisode = multer({ storage: episodeStorage })
+const uploadImage = multer({ storage: imageStorage })
 const AdminRouter = express.Router()
 
 import adminController from '../controllers/adminController'
@@ -23,8 +35,8 @@ AdminRouter.get('/', controller.admin)
 AdminRouter.get('/add', controller.getAddAnime)
 AdminRouter.post('/add', controller.postAddAnime)
 AdminRouter.get('/update/:id', controller.getUpdateAnime) 
-AdminRouter.post('/update/:id', controller.postUpdateAnime)
-AdminRouter.post('/update/:id/episodes/add', upload.single('episode'), controller.addEpisode)
+AdminRouter.post('/update/:id', uploadImage.single('image'), controller.postUpdateAnime)
+AdminRouter.post('/update/:id/episodes/add', uploadEpisode.single('episode'), controller.addEpisode)
 AdminRouter.post('/update/:id/:episodeID/delete', controller.deleteEpisode)
 AdminRouter.post('/delete/:id', controller.deleteAnime)
 AdminRouter.get('/users', controller.users)

@@ -7,12 +7,16 @@ html(lang="en")
         title Catalogue
         link(rel="stylesheet", href="/catalogue.css")
     body 
-        a(href="/profile") Profile 
-        a(href="/catalogue") Catalogue 
+        header 
+            strong 
+                p Anime Patterns
+            a(href="/profile") Profile 
+            a(href="/catalogue") Catalogue 
         h1 Anime Catalogue 
         ol 
             each val in anime
                 li
-                    ul(style="list-style: none;")
-                        li
-                            a(href="/catalogue/" + val._id)= val.name  
+                    a(href="/catalogue/" + val._id)  
+                        img(src="/images/" + val.name + ".jpg")
+                    br
+                    a(href="/catalogue/" + val._id)= val.name  

@@ -29,18 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Anime_1 = __importStar(require("../models/Anime"));
 const Users_1 = __importDefault(require("../models/Users"));
-const multer_1 = __importDefault(require("multer"));
 const fs_1 = __importDefault(require("fs"));
-const storage = multer_1.default.diskStorage({
-    destination: async function (req, file, cb) {
-        const anime = await Anime_1.default.findOne({ _id: req.params.id });
-        cb(null, `episodes/${anime?.name}`);
-    },
-    filename: function (req, res, cb) {
-        cb(null, `season${req.body.seasonNumber}-episode${req.body.episodeNumber}.mp4`);
-    }
-});
-const upload = (0, multer_1.default)({ storage: storage });
 const AdminRouter = express_1.default.Router();
 class adminController {
     constructor() { }
@@ -58,11 +47,11 @@ class adminController {
     }
     async postAddAnime(req, res) {
         try {
+            fs_1.default.mkdirSync(`./episodes/${req.body.name}`);
             await Anime_1.default.create({
                 name: req.body.name,
                 description: req.body.description,
             });
-            fs_1.default.mkdirSync(`./episodes/${req.body.name}`);
             res.redirect('/admin');
         }
         catch {
@@ -78,13 +67,21 @@ class adminController {
         });
     }
     async postUpdateAnime(req, res) {
-        const animeID = req.params.id;
-        const anime = await Anime_1.default.findOne({ _id: animeID });
-        await Anime_1.default.findOneAndUpdate({ name: anime?.name }, {
-            name: req.body.name,
-            description: req.body.description,
-        });
-        res.redirect('/admin');
+        try {
+            const animeID = req.params.id;
+            const anime = await Anime_1.default.findOne({ _id: animeID });
+            if (anime?.name != req.body.name) {
+                fs_1.default.renameSync(`./episodes/${anime?.name}`, `./episodes/${req.body.name}`);
+            }
+            await Anime_1.default.findOneAndUpdate({ _id: animeID }, {
+                name: req.body.name,
+                description: req.body.description,
+            });
+            res.redirect('/admin');
+        }
+        catch {
+            console.log('cannot update anime');
+        }
     }
     async addEpisode(req, res) {
         await Anime_1.default.findOneAndUpdate({ _id: req.params.id }, { $push: {
