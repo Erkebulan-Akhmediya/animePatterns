@@ -5,20 +5,30 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title= anime.name
+        link(rel="stylesheet", href="/anime.css")
     body 
-        a(href="/profile") Profile  
-        a(href="/catalogue") Catalogue   
-        h1= anime.name 
-        h3 Description 
-        p= anime.description 
+        header 
+            strong 
+                p Anime Patterns 
+            a(href="/profile") Profile  
+            a(href="/catalogue") Catalogue  
+        main
+            div(id="meta")
+                img(src="/images/" + anime.name + ".jpg") 
+                div 
+                    h1= anime.name 
+                    div(id="description")
+                        h3 Description 
+                        p= anime.description 
 
-        form(action="/catalogue/" + animeID + "/like", method="post") 
-            input(type="submit", value="Like")
+                    div(id="buttons")
+                        form(action="/catalogue/" + animeID + "/like", method="post") 
+                            input(type="submit", value="Like")
 
-        form(action="/catalogue/" + animeID + "/planning", method="post") 
-            input(type="submit", value="Plan to Watch")
+                        form(action="/catalogue/" + animeID + "/planning", method="post") 
+                            input(type="submit", value="Plan to Watch")
 
-        ul 
-            each val in anime.episodes 
-                li= "Season " + val.season + " Episode " + val.number
-                a(href="/catalogue/" + animeID + "/" + val._id) Watch
+            ul 
+                each val in anime.episodes 
+                    li 
+                        a(href="/catalogue/" + animeID + "/" + val._id)= `Season ${val.season}  Episode ${val.number}`

@@ -12,11 +12,12 @@ html(lang="en")
                 p Anime Patterns
             a(href="/profile") Profile 
             a(href="/catalogue") Catalogue 
-        h1 Anime Catalogue 
-        ol 
-            each val in anime
-                li
-                    a(href="/catalogue/" + val._id)  
-                        img(src="/images/" + val.name + ".jpg")
-                    br
-                    a(href="/catalogue/" + val._id)= val.name  
+        main 
+            h1 Anime Catalogue 
+            ol 
+                each val in anime
+                    li
+                        a(href="/catalogue/" + val._id)  
+                            div
+                                img(src="/images/" + val.name + ".jpg") 
+                                p= val.name 

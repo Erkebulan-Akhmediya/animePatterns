@@ -5,22 +5,28 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Profile
+        link(rel="stylesheet", href="/profile.css")
     body 
-        a(href="/profile") Profile 
-        a(href="/catalogue") Catalogue  
-        h1= "You are now logged in as " + user.firstName + " " + user.lastName 
-        h3 Planning to Watch 
-        ul
-            each val in planning 
-                li
-                    a(href="/catalogue/" + val._id)= val.name
-                    form(action="/catalogue/" + val._id + "/planning/remove", method="post") 
-                        input(type="submit", value="Remove")
-        
-        h3 List of Liked Anime 
-        ul 
-            each val in liked 
-                li 
-                    a(href="/catalogue/" + val._id)= val.name  
-                    form(action="/catalogue/" + val._id + "/like/remove", method="post")
-                        input(type="submit", value="Remove") 
+        header 
+            strong 
+                p Anime Patterns 
+            a(href="/profile") Profile 
+            a(href="/catalogue") Catalogue  
+        main 
+            h1= user.firstName + " " + user.lastName 
+            div
+                h3 Planning to Watch 
+                ul
+                    each val in planning 
+                        li
+                            a(href="/catalogue/" + val._id)= val.name
+                            form(action="/catalogue/" + val._id + "/planning/remove", method="post") 
+                                input(type="submit", value="Remove")
+            div
+                h3 List of Liked Anime 
+                ul 
+                    each val in liked 
+                        li 
+                            a(href="/catalogue/" + val._id)= val.name  
+                            form(action="/catalogue/" + val._id + "/like/remove", method="post")
+                                input(type="submit", value="Remove") 
