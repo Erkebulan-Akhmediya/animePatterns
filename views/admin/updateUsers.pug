@@ -7,17 +7,18 @@ html(lang="en")
         title Change User Data
         link(rel="stylesheet", href="/updateUsers.css")
     body 
-        a(href="/admin") Admin
-        a(href="/admin/users") Users 
-        
-        form(action="/admin/users/update/" + userID, method="post") 
-            label(for="first-name") First Name 
-            input#first-name(type="text", name="firstName", value= user.firstName)
+        header 
+            a(href="/admin") Admin
+            a(href="/admin/users") Users 
+        main 
+            form(action="/admin/users/update/" + userID, method="post") 
+                label(for="first-name") First Name 
+                input#first-name(type="text", name="firstName", value= user.firstName)
 
-            label(for="last-name") Last Name 
-            input#last-name(type="text", name="lastName", value= user.lastName)
+                label(for="last-name") Last Name 
+                input#last-name(type="text", name="lastName", value= user.lastName)
 
-            label(for="email") Email  
-            input#email(type="email", name="email", value= user.email)
+                label(for="email") Email  
+                input#email(type="email", name="email", value= user.email)
 
-            input(type="submit", value="Change User Data")
+                input(type="submit", value="Change User Data")

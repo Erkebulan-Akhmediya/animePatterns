@@ -7,38 +7,42 @@ html(lang="en")
         title= anime.name
         link(rel="stylesheet", href="/updateAnime.css")
     body 
-        a(href="/admin") Admin 
-        a(href="/admin/users") Users 
-        h1 General Info 
+        header 
+            a(href="/admin") Admin 
+            a(href="/admin/users") Users 
+        main 
+            div(id="info")
+                h1 General Info 
+                form#update(action="/admin/update/" + animeID, method="post", enctype="multipart/form-data")
+                    input#image(type="file", name="image")
 
-        form#update(action="/admin/update/" + animeID, method="post", enctype="multipart/form-data")
-            input#image(type="file", name="image")
+                    label(for="name") Name 
+                    input#name(type="text", name="name", value= anime.name) 
 
-            label(for="name") Name 
-            input#name(type="text", name="name", value= anime.name) 
+                    label(for="description") Description  
+                    input#description(type="text", name="description", value= anime.description)
 
-            label(for="description") Description  
-            input#description(type="text", name="description", value= anime.description)
+                    input(type="submit", value="Update the Anime")
 
-            input(type="submit", value="Update the Anime")
+                form#delete(action="/admin/delete/" + animeID, method="post")
+                    input(type="submit", value="Delete the Anime") 
 
-        form#delete(action="/admin/delete/" + animeID, method="post")
-            input(type="submit", value="Delete the Anime") 
+            div(id="episodes-div")
+                h1 Episodes 
+                ul 
+                    each val in anime.episodes 
+                        li
+                            p= "Episode " + val.number + " Season " + val.season 
+                            form(action="/admin/update/" + anime._id + "/" + val._id + "/delete", method="post") 
+                                input(type="submit", value="Delete Episode")
 
-        h1 Episode
-        ul 
-            each val in anime.episodes 
-                li= "Episode " + val.number + " Season " + val.season 
-                form(action="/admin/update/" + anime._id + "/" + val._id + "/delete", method="post") 
-                    input(type="submit", value="Delete Episode")
+                form#episodes(action="/admin/update/" + animeID + "/episodes/add", method="post", enctype="multipart/form-data") 
+                    label(for="season-number") Season
+                    input#season-number(type="number", name="seasonNumber", value=1)
 
-        form#episodes(action="/admin/update/" + animeID + "/episodes/add", method="post", enctype="multipart/form-data") 
-            label(for="season-number") Season
-            input#season-number(type="number", name="seasonNumber", value=1)
+                    label(for="episode-number") Episode  
+                    input#episode-number(type="number", name="episodeNumber", value=1)
 
-            label(for="episode-number") Episode  
-            input#episode-number(type="number", name="episodeNumber", value=1)
+                    input#episode(type="file", name="episode")
 
-            input#episode(type="file", name="episode")
-
-            input(type="submit", value="Add Episode")
+                    input(type="submit", value="Add Episode")

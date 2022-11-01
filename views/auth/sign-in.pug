@@ -7,15 +7,16 @@ html(lang="en")
         title Sign In
         link(rel="stylesheet", href="/sign-in.css")
     body 
-        h1 Sign In 
-        form(action="/sign-in", method="post")
-            label(for="first-name") First Name  
-            input#first-name(type="text", name="firstName") 
+        div
+            h1 Sign In 
+            form(action="/sign-in", method="post")
+                label(for="first-name") First Name  
+                input#first-name(type="text", name="firstName") 
 
-            label(for="last-name") Last Name  
-            input#last-name(type="text", name="lastName") 
+                label(for="last-name") Last Name  
+                input#last-name(type="text", name="lastName") 
 
-            label(for="password") Password  
-            input#password(type="password", name="password")  
+                label(for="password") Password  
+                input#password(type="password", name="password")  
 
-            input(type="submit", value="Sign In")
+                input(type="submit", value="Sign In")

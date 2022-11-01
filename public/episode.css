@@ -1,0 +1,46 @@
+header {
+    width: 100%;
+    background-color: #23252b;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+header p, header a {
+    color: white;
+    text-decoration: none;
+    margin: 20px;
+    font-size: 25px;
+}
+
+header p {
+    color: #f47521;
+    font-style: oblique;
+}
+
+main {
+    padding: 0% 20% 0% 20%;
+}
+
+main h3 {
+    color: white;
+}
+
+main h1 {
+    color: #f47521;
+    font-size: 40px;
+}
+
+body {
+    margin: 0%;
+    background-color: black;
+}
+
+h1, h3, p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1:hover, h3:hover, p:hover, a:hover {
+    color: #f47521;
+}

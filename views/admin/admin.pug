@@ -5,12 +5,16 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Admin 
+        link(rel="stylesheet", href="/admin.css")
     body 
-        a(href="/admin") Admin 
-        a(href="/admin/users") Users 
-        h1 welcome to admin page 
-        ul 
-            each val in anime  
-                li 
-                    a(href="/admin/update/" + val._id)= val.name
-        a(href="/admin/add") Add Anime 
+        header 
+            a(href="/admin") Admin 
+            a(href="/admin/users") Users 
+        main
+            h1 Welcome to Admin Page 
+            ul 
+                each val in anime  
+                    li 
+                        a(href="/admin/update/" + val._id)= val.name
+            strong 
+                a(href="/admin/add") Add Anime 
