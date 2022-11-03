@@ -8,21 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-class authController {
-    constructor(strategy) {
-        authController.strategy = strategy;
-    }
-    setStrategy(strategy) {
-        authController.strategy = strategy;
-    }
+const Users_1 = __importDefault(require("../models/Users"));
+class signUpController {
     getMethod(req, res) {
-        authController.strategy.getMethod(req, res);
+        res.render('auth/sign-up');
     }
     postMethod(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            authController.strategy.postMethod(req, res);
+            yield Users_1.default.create({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                password: req.body.password,
+            });
+            res.redirect('/sign-in');
         });
     }
 }
-exports.default = authController;
+exports.default = signUpController;
