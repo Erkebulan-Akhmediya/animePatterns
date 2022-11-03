@@ -6,8 +6,8 @@ interface IUser {
     lastName: string, 
     email: string,
     password: string,
-    planning: Schema[],
-    liked: Schema[],
+    planning: string[],
+    liked: string[],
 }
 
 const schema = new Schema<IUser>({
@@ -25,11 +25,11 @@ const schema = new Schema<IUser>({
         required: true,
     },
     planning: {
-        type: [animeSchema], 
+        type: [String], 
         default: [],
     },
     liked: {
-        type: [animeSchema], 
+        type: [String], 
         default: [],
     }
 })

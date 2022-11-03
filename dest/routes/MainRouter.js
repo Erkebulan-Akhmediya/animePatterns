@@ -20,10 +20,20 @@ const Anime_1 = __importDefault(require("../models/Anime"));
 const MainRouter = express_1.default.Router();
 MainRouter.get('/profile', auth_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const cart = yield Users_1.default.find({ _id: req.body.user.id }, { planning: 1, liked: 1 });
+    const planning = [];
+    for (let i = 0; i < cart[0].planning.length; i++) {
+        let temp = yield Anime_1.default.findOne({ _id: cart[0].planning[i] });
+        planning.push(temp);
+    }
+    const liked = [];
+    for (let i = 0; i < cart[0].liked.length; i++) {
+        let temp = yield Anime_1.default.findOne({ _id: cart[0].liked[i] });
+        liked.push(temp);
+    }
     res.render('profile', {
         user: req.body.user,
-        planning: cart[0].planning,
-        liked: cart[0].liked,
+        planning: planning,
+        liked: liked,
     });
 }));
 MainRouter.get('/', (req, res) => {
@@ -64,4 +74,8 @@ MainRouter.get('/video/:animeID/:episodeID', (req, res) => __awaiter(void 0, voi
         res.send('file not found');
     }
 }));
+MainRouter.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/sign-in');
+});
 exports.default = MainRouter;

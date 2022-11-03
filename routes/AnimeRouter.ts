@@ -1,6 +1,4 @@
 import express, { Request, Response } from 'express'
-import Anime from '../models/Anime'
-import Users from '../models/Users'
 import auth from '../middleware/auth'
 import animeController from '../controllers/animeController'
 

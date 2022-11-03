@@ -1,6 +1,4 @@
 import { Request, Response } from 'express'
-import Users from '../models/Users'
-import jwt from 'jsonwebtoken'
 import Strategy from './authStrategyInterface'
 
 class authController {

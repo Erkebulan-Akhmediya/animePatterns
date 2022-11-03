@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const Anime_1 = require("./Anime");
 const schema = new mongoose_1.Schema({
     firstName: {
         type: String,
@@ -17,11 +16,11 @@ const schema = new mongoose_1.Schema({
         required: true,
     },
     planning: {
-        type: [Anime_1.animeSchema],
+        type: [String],
         default: [],
     },
     liked: {
-        type: [Anime_1.animeSchema],
+        type: [String],
         default: [],
     }
 });

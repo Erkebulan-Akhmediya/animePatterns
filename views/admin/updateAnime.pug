@@ -20,7 +20,7 @@ html(lang="en")
                     input#name(type="text", name="name", value= anime.name) 
 
                     label(for="description") Description  
-                    input#description(type="text", name="description", value= anime.description)
+                    textarea#description(name="description", cols="30", rows="10")= anime.description 
 
                     input(type="submit", value="Update the Anime")
 

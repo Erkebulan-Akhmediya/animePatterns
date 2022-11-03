@@ -53,7 +53,7 @@ class animeController {
             const animeID = req.params.id;
             const anime = yield Anime_1.default.findOne({ _id: animeID });
             yield Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $push: {
-                    planning: anime
+                    planning: animeID
                 } });
             res.redirect('/catalogue/' + animeID);
         });
@@ -63,7 +63,7 @@ class animeController {
             const animeID = req.params.id;
             const anime = yield Anime_1.default.findOne({ _id: animeID });
             yield Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $pull: {
-                    planning: anime
+                    planning: animeID
                 } });
             res.redirect('/profile');
         });
@@ -73,7 +73,7 @@ class animeController {
             const animeID = req.params.id;
             const anime = yield Anime_1.default.findOne({ _id: animeID });
             yield Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $push: {
-                    liked: anime
+                    liked: animeID
                 } });
             res.redirect('/catalogue/' + animeID);
         });
@@ -83,7 +83,7 @@ class animeController {
             const animeID = req.params.id;
             const anime = yield Anime_1.default.findOne({ _id: animeID });
             yield Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $pull: {
-                    liked: anime
+                    liked: animeID
                 } });
             res.redirect('/profile');
         });

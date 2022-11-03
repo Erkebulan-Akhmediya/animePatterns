@@ -43,7 +43,7 @@ class animeController {
         const anime = await Anime.findOne({ _id: animeID })
     
         await Users.findOneAndUpdate({ _id: req.body.user.id }, { $push: {
-            planning: anime
+            planning: animeID
         } })
     
         res.redirect('/catalogue/' + animeID)
@@ -54,7 +54,7 @@ class animeController {
         const anime = await Anime.findOne({ _id: animeID })
     
         await Users.findOneAndUpdate({ _id: req.body.user.id }, { $pull: {
-            planning: anime
+            planning: animeID
         } })
     
         res.redirect('/profile')
@@ -65,7 +65,7 @@ class animeController {
         const anime = await Anime.findOne({ _id: animeID })
     
         await Users.findOneAndUpdate({ _id: req.body.user.id }, { $push: {
-            liked: anime
+            liked: animeID
         } })
     
         res.redirect('/catalogue/' + animeID)
@@ -76,7 +76,7 @@ class animeController {
         const anime = await Anime.findOne({ _id: animeID })
     
         await Users.findOneAndUpdate({ _id: req.body.user.id }, { $pull: {
-            liked: anime
+            liked: animeID
         } })
     
         res.redirect('/profile')
