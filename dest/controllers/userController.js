@@ -13,44 +13,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Users_1 = __importDefault(require("../models/Users"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-class authController {
+class userController {
     constructor() { }
-    getSignUp(req, res) {
-        res.render('auth/sign-up');
-    }
-    postSignUp(req, res) {
+    users(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield Users_1.default.create({
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                email: req.body.email,
-                password: req.body.password,
-            });
-            res.redirect('/sign-in');
+            const users = yield Users_1.default.find();
+            res.render('admin/users', { users: users });
         });
     }
-    getSignIn(req, res) {
-        res.render('auth/sign-in');
-    }
-    postSignIn(req, res) {
+    deleteUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const foundUser = yield Users_1.default.find({
+            const user = yield Users_1.default.find();
+            const userID = req.params.id;
+            yield Users_1.default.findOneAndDelete({ firstName: user[userID].firstName });
+            res.redirect('/admin/users');
+        });
+    }
+    getUpdateUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield Users_1.default.find();
+            const userID = req.params.id;
+            res.render('admin/updateUsers', {
+                user: user[userID],
+                userID: req.params.id,
+            });
+        });
+    }
+    postUpdateUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield Users_1.default.find();
+            const userID = req.params.id;
+            yield Users_1.default.findOneAndUpdate({ firstName: user[userID].firstName }, { $set: {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
-                    password: req.body.password,
-                });
-                const secret = process.env.ACCESS_TOKEN_SECRET;
-                const token = jsonwebtoken_1.default.sign(foundUser.toString(), secret);
-                res.clearCookie('token');
-                res.cookie('token', token, { maxAge: 15 * 60 * 1000 });
-                res.redirect('/profile');
-            }
-            catch (e) {
-                res.send('Incorrect User Data');
-            }
+                    email: req.body.email,
+                } });
+            res.redirect('/admin/users');
         });
     }
 }
-exports.default = authController;
+exports.default = userController;

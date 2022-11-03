@@ -5,6 +5,12 @@ div {
     border-radius: 10px;
 }
 
+@media (max-width: 1000px) {
+    div {
+        width: 60%;
+    }
+}
+
 form {
     display: flex;
     flex-direction: column;

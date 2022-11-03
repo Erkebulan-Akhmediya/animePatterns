@@ -61,6 +61,12 @@ main {
     padding: 0% 10% 0% 10%;
 }
 
+@media (max-width: 600px) {
+    main {
+        padding: 0% 5% 0% 5%;
+    }
+}
+
 body {
     /* background-image: url('https://wallpapers.com/images/hd/cat-art-minimalist-cat-with-scarf-9xsp01c2qd97kzoz.jpg'); */
     background-color: black;

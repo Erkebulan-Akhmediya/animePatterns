@@ -1,8 +1,7 @@
-import express, { Request, Response } from 'express'
-import Anime, { episodeModel } from '../models/Anime'
-import Users from '../models/Users'
+import express from 'express'
+import Anime from '../models/Anime'
 import multer from 'multer'
-import fs from 'fs'
+import userController from '../controllers/userController'
 
 const imageStorage = multer.diskStorage({
     destination: async function (req, file, cb) {
@@ -29,7 +28,7 @@ const uploadImage = multer({ storage: imageStorage })
 const AdminRouter = express.Router()
 
 import adminController from '../controllers/adminController'
-const controller = new adminController()
+const controller = new adminController(new userController())
 
 AdminRouter.get('/', controller.admin)
 AdminRouter.get('/add', controller.getAddAnime)

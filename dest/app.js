@@ -6,8 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const express_1 = __importDefault(require("express"));
 class App {
-    app;
-    instance;
     constructor() {
         this.app = (0, express_1.default)();
         this.app.set('views', './views');

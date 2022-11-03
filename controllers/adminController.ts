@@ -1,13 +1,17 @@
 import express, { Request, Response } from 'express'
 import Anime, { episodeModel } from '../models/Anime'
 import Users from '../models/Users'
-import multer from 'multer'
 import fs from 'fs'
+import userController from './userController'
 
 const AdminRouter = express.Router()
 
 class adminController {
-    public constructor() {}
+    private static controller: userController 
+
+    public constructor(controller: userController) {
+        adminController.controller = controller
+    }
 
     public async admin(req: Request, res: Response) {
         try {
@@ -98,39 +102,19 @@ class adminController {
     }
 
     public async users(req: Request, res: Response) {
-        const users = await Users.find()
-        res.render('admin/users', { users: users })
+        adminController.controller.users(req, res)
     }
 
     public async deleteUser(req: Request, res: Response) {
-        const user = await Users.find()
-        const userID: any = req.params.id
-    
-        await Users.findOneAndDelete({ firstName: user[userID].firstName })
-        res.redirect('/admin/users')
+        adminController.controller.deleteUser(req, res)
     }
 
     public async getUpdateUser(req: Request, res: Response) {
-        const user = await Users.find()
-        const userID: any = req.params.id
-    
-        res.render('admin/updateUsers', { 
-            user: user[userID], 
-            userID: req.params.id,
-        })
+        adminController.controller.getUpdateUser(req, res)
     }
 
     public async postUpdateUser(req: Request, res: Response) {
-        const user = await Users.find()
-        const userID: any = req.params.id
-        
-        await Users.findOneAndUpdate({ firstName: user[userID].firstName }, { $set: {
-            firstName: req.body.firstName, 
-            lastName: req.body.lastName, 
-            email: req.body.email, 
-        } })
-    
-        res.redirect('/admin/users')
+        adminController.controller.postUpdateUser(req, res)
     }
 }
 

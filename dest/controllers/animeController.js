@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -7,63 +16,77 @@ const Anime_1 = __importDefault(require("../models/Anime"));
 const Users_1 = __importDefault(require("../models/Users"));
 class animeController {
     constructor() { }
-    async catalogue(req, res) {
-        res.render('catalogue', { anime: await Anime_1.default.find({}, { name: 1, price: 1 }) });
-    }
-    async anime(req, res) {
-        const animeID = req.params.id;
-        const anime = await Anime_1.default.findOne({ _id: animeID });
-        res.render('anime', {
-            anime: anime,
-            animeID: animeID,
+    catalogue(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            res.render('catalogue', { anime: yield Anime_1.default.find({}, { name: 1, price: 1 }) });
         });
     }
-    async episode(req, res) {
-        const animeID = req.params.id;
-        let anime = await Anime_1.default.findOne({ _id: animeID });
-        const episodeID = req.params.episodeID;
-        let episode = null;
-        for (let i = 0; i < anime?.episodes.length; i++) {
-            if (anime.episodes[i]._id == episodeID) {
-                episode = anime.episodes[i];
+    anime(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const animeID = req.params.id;
+            const anime = yield Anime_1.default.findOne({ _id: animeID });
+            res.render('anime', {
+                anime: anime,
+                animeID: animeID,
+            });
+        });
+    }
+    episode(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const animeID = req.params.id;
+            let anime = yield Anime_1.default.findOne({ _id: animeID });
+            const episodeID = req.params.episodeID;
+            let episode = null;
+            for (let i = 0; i < (anime === null || anime === void 0 ? void 0 : anime.episodes.length); i++) {
+                if (anime.episodes[i]._id == episodeID) {
+                    episode = anime.episodes[i];
+                }
             }
-        }
-        res.render('episode', {
-            episode: episode,
-            anime: anime,
+            res.render('episode', {
+                episode: episode,
+                anime: anime,
+            });
         });
     }
-    async addPlanning(req, res) {
-        const animeID = req.params.id;
-        const anime = await Anime_1.default.findOne({ _id: animeID });
-        await Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $push: {
-                planning: anime
-            } });
-        res.redirect('/catalogue/' + animeID);
+    addPlanning(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const animeID = req.params.id;
+            const anime = yield Anime_1.default.findOne({ _id: animeID });
+            yield Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $push: {
+                    planning: anime
+                } });
+            res.redirect('/catalogue/' + animeID);
+        });
     }
-    async removePlanning(req, res) {
-        const animeID = req.params.id;
-        const anime = await Anime_1.default.findOne({ _id: animeID });
-        await Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $pull: {
-                planning: anime
-            } });
-        res.redirect('/profile');
+    removePlanning(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const animeID = req.params.id;
+            const anime = yield Anime_1.default.findOne({ _id: animeID });
+            yield Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $pull: {
+                    planning: anime
+                } });
+            res.redirect('/profile');
+        });
     }
-    async addLike(req, res) {
-        const animeID = req.params.id;
-        const anime = await Anime_1.default.findOne({ _id: animeID });
-        await Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $push: {
-                liked: anime
-            } });
-        res.redirect('/catalogue/' + animeID);
+    addLike(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const animeID = req.params.id;
+            const anime = yield Anime_1.default.findOne({ _id: animeID });
+            yield Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $push: {
+                    liked: anime
+                } });
+            res.redirect('/catalogue/' + animeID);
+        });
     }
-    async removelike(req, res) {
-        const animeID = req.params.id;
-        const anime = await Anime_1.default.findOne({ _id: animeID });
-        await Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $pull: {
-                liked: anime
-            } });
-        res.redirect('/profile');
+    removelike(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const animeID = req.params.id;
+            const anime = yield Anime_1.default.findOne({ _id: animeID });
+            yield Users_1.default.findOneAndUpdate({ _id: req.body.user.id }, { $pull: {
+                    liked: anime
+                } });
+            res.redirect('/profile');
+        });
     }
 }
 exports.default = animeController;
