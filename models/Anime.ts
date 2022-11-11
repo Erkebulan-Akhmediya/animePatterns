@@ -15,9 +15,6 @@ interface IEpisode {
 }
 
 export const episodeSchema = new Schema<IEpisode>({
-    low: String, 
-    medium: String, 
-    high: String,
     number: Number,
     season: {
         type: Number, 

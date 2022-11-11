@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express'
 import Anime, { episodeModel } from '../models/Anime'
-import Users from '../models/Users'
 import fs from 'fs'
 import userController from './userController'
 
@@ -73,9 +72,6 @@ class adminController {
 
         await Anime.findOneAndUpdate({ _id: req.params.id }, { $push: {
             episodes: new episodeModel({
-                low: '123', 
-                medium: '123', 
-                high: '123',
                 number: req.body.episodeNumber,
                 season: req.body.seasonNumber,
             }),

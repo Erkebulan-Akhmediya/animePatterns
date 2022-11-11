@@ -105,9 +105,6 @@ class adminController {
         return __awaiter(this, void 0, void 0, function* () {
             yield Anime_1.default.findOneAndUpdate({ _id: req.params.id }, { $push: {
                     episodes: new Anime_1.episodeModel({
-                        low: '123',
-                        medium: '123',
-                        high: '123',
                         number: req.body.episodeNumber,
                         season: req.body.seasonNumber,
                     }),

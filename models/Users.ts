@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose'
-import { animeSchema } from './Anime'
 
 interface IUser {
     firstName: string, 

@@ -3,9 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.animeSchema = exports.episodeModel = exports.episodeSchema = void 0;
 const mongoose_1 = require("mongoose");
 exports.episodeSchema = new mongoose_1.Schema({
-    low: String,
-    medium: String,
-    high: String,
     number: Number,
     season: {
         type: Number,

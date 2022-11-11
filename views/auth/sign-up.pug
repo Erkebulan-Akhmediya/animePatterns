@@ -7,20 +7,21 @@ html(lang="en")
         title Sign Up
         link(rel="stylesheet", href="/signUp.css")
     body 
-        h1 Sign Up
-        form(action="/sign-up", method="post") 
-            label(for="first-name") First Name 
-            input#first-name(type="text", name="firstName")
+        div
+            h1 Sign Up
+            form(action="/sign-up", method="post") 
+                label(for="first-name") First Name 
+                input#first-name(type="text", name="firstName")
 
-            label(for="last-name") Last Name 
-            input#last-name(type="text", name="lastName")
+                label(for="last-name") Last Name 
+                input#last-name(type="text", name="lastName")
 
-            label(for="email") Email
-            input#email(type="email", name="email")
+                label(for="email") Email
+                input#email(type="email", name="email")
 
-            label(for="password") Password
-            input#password(type="password", name="password")
+                label(for="password") Password
+                input#password(type="password", name="password")
 
-            input(type="submit", value="Sign Up")
-        p Already have an account? 
-            a(href="/sign-in") Sign In
+                input(type="submit", value="Sign Up")
+            p Already have an account? 
+                a(href="/sign-in") Sign In
