@@ -24,3 +24,9 @@ My project is an anime website called “Anime Patterns”. In this website user
 * [x] Created views using pug view engine 
 * [x] Created video streaming
 * [x] Implemented MVC architecture
+
+### Launch
+Download zip file from [here](https://drive.google.com/file/d/1D2BUFh-q1OAx4-WhpIv6bX-0P5IF_q2B/view?usp=share_link) then in command type:
+```
+npm run dev
+```
