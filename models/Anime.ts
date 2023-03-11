@@ -4,14 +4,13 @@ interface IAnime {
     name: string, 
     description: string,
     episodes: IEpisode[],
+    imageUrl: string,
 }
 
 interface IEpisode {
-    low: string,
-    medium: string, 
-    high: string,
     number: number,
     season: number,
+    url: string,
 }
 
 export const episodeSchema = new Schema<IEpisode>({
@@ -19,7 +18,8 @@ export const episodeSchema = new Schema<IEpisode>({
     season: {
         type: Number, 
         default: 1,
-    }
+    },
+    url: String,
 })
 
 export const episodeModel = model<IEpisode>('Episode', episodeSchema)
@@ -33,7 +33,8 @@ export const animeSchema = new Schema<IAnime>({
     episodes: {
         type: [episodeSchema], 
         default: [],
-    }
+    },
+    imageUrl: String,
 })
 
 export default model<IAnime>('Anime', animeSchema)

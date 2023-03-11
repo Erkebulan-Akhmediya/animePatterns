@@ -6,7 +6,7 @@ class animeController {
     public constructor() {}
 
     public async catalogue(req: Request, res: Response) {
-        res.render('catalogue', { anime: await Anime.find({}, { name: 1, price: 1 }) })
+        res.render('catalogue', { anime: await Anime.find({}) })
     }
 
     public async anime(req: Request, res: Response) {

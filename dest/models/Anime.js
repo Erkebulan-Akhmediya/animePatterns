@@ -7,7 +7,8 @@ exports.episodeSchema = new mongoose_1.Schema({
     season: {
         type: Number,
         default: 1,
-    }
+    },
+    url: String,
 });
 exports.episodeModel = (0, mongoose_1.model)('Episode', exports.episodeSchema);
 exports.animeSchema = new mongoose_1.Schema({
@@ -19,6 +20,7 @@ exports.animeSchema = new mongoose_1.Schema({
     episodes: {
         type: [exports.episodeSchema],
         default: [],
-    }
+    },
+    imageUrl: String,
 });
 exports.default = (0, mongoose_1.model)('Anime', exports.animeSchema);

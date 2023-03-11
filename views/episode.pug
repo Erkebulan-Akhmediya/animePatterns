@@ -9,12 +9,12 @@ html(lang="en")
     body 
         header 
             strong 
-                p Anime Patterns 
-            a(href="/profile") Profile   
-            a(href="/catalogue") Catalogue 
+                p A Knee Man
+            a(href="/profile") Профиль
+            a(href="/catalogue") Каталог
             a(href="/catalogue/" + anime._id)= anime.name
         main  
             h1= anime.name
             h3= "Season " + episode.season + " Episode " + episode.number 
             video(width="95%" controls autoplay)
-                source(src="/video/" + anime._id + "/" + episode._id type="video/mp4") 
+                source(src=episode.url type="video/mp4") 

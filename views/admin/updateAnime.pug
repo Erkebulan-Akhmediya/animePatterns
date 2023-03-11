@@ -13,8 +13,10 @@ html(lang="en")
         main 
             div(id="info")
                 h1 General Info 
-                form#update(action="/admin/update/" + animeID, method="post", enctype="multipart/form-data")
-                    input#image(type="file", name="image")
+                form#update(action="/admin/update/" + animeID, method="post")
+
+                    label(for="image") Image  
+                    input#image(type="text", name="image")
 
                     label(for="name") Name 
                     input#name(type="text", name="name", value= anime.name) 
@@ -36,13 +38,14 @@ html(lang="en")
                             form(action="/admin/update/" + anime._id + "/" + val._id + "/delete", method="post") 
                                 input(type="submit", value="Delete Episode")
 
-                form#episodes(action="/admin/update/" + animeID + "/episodes/add", method="post", enctype="multipart/form-data") 
+                form#episodes(action="/admin/update/" + animeID + "/episodes/add", method="post") 
                     label(for="season-number") Season
                     input#season-number(type="number", name="seasonNumber", value=1)
 
                     label(for="episode-number") Episode  
                     input#episode-number(type="number", name="episodeNumber", value=1)
 
-                    input#episode(type="file", name="episode")
+                    label(for="episode-url") URL
+                    input#episode-url(type="text", name="episodeUrl")
 
                     input(type="submit", value="Add Episode")

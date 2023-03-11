@@ -4,24 +4,24 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Sign Up
+        title Регистрация
         link(rel="stylesheet", href="/signUp.css")
     body 
         div
-            h1 Sign Up
+            h1 Регистрация
             form(action="/sign-up", method="post") 
-                label(for="first-name") First Name 
+                label(for="first-name") Имя
                 input#first-name(type="text", name="firstName")
 
-                label(for="last-name") Last Name 
+                label(for="last-name") Фамилия
                 input#last-name(type="text", name="lastName")
 
                 label(for="email") Email
                 input#email(type="email", name="email")
 
-                label(for="password") Password
+                label(for="password") Пароль
                 input#password(type="password", name="password")
 
-                input(type="submit", value="Sign Up")
-            p Already have an account? 
-                a(href="/sign-in") Sign In
+                input(type="submit", value="Зарегистрироваться")
+            p Уже есть аккаунт? 
+                a(href="/sign-in") Войти

@@ -37,7 +37,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Anime_1 = __importStar(require("../models/Anime"));
-const fs_1 = __importDefault(require("fs"));
 const AdminRouter = express_1.default.Router();
 class adminController {
     constructor(controller) {
@@ -60,7 +59,6 @@ class adminController {
     postAddAnime(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                fs_1.default.mkdirSync(`./episodes/${req.body.name}`);
                 yield Anime_1.default.create({
                     name: req.body.name,
                     description: req.body.description,
@@ -87,12 +85,10 @@ class adminController {
             try {
                 const animeID = req.params.id;
                 const anime = yield Anime_1.default.findOne({ _id: animeID });
-                if ((anime === null || anime === void 0 ? void 0 : anime.name) != req.body.name) {
-                    fs_1.default.renameSync(`./episodes/${anime === null || anime === void 0 ? void 0 : anime.name}`, `./episodes/${req.body.name}`);
-                }
                 yield Anime_1.default.findOneAndUpdate({ _id: animeID }, {
                     name: req.body.name,
                     description: req.body.description,
+                    imageUrl: req.body.image,
                 });
                 res.redirect('/admin');
             }
@@ -107,6 +103,7 @@ class adminController {
                     episodes: new Anime_1.episodeModel({
                         number: req.body.episodeNumber,
                         season: req.body.seasonNumber,
+                        url: req.body.episodeUrl,
                     }),
                 } });
             res.redirect('/admin/update/' + req.params.id);
@@ -115,9 +112,7 @@ class adminController {
     deleteEpisode(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Anime_1.default.findOneAndUpdate({ _id: req.params.id }, { $pull: {
-                    episodes: {
-                        _id: req.params.episodeID,
-                    },
+                    episodes: { _id: req.params.episodeID },
                 } });
             res.redirect('/admin/update/' + req.params.id);
         });
@@ -127,7 +122,6 @@ class adminController {
             const animeID = req.params.id;
             const anime = yield Anime_1.default.findOne({ _id: animeID });
             yield Anime_1.default.findByIdAndRemove({ _id: anime === null || anime === void 0 ? void 0 : anime._id });
-            fs_1.default.rmSync(`episodes/${anime === null || anime === void 0 ? void 0 : anime.name}`, { recursive: true, force: true });
             res.redirect('/admin');
         });
     }

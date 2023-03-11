@@ -9,26 +9,26 @@ html(lang="en")
     body 
         header 
             strong 
-                p Anime Patterns 
-            a(href="/profile") Profile  
-            a(href="/catalogue") Catalogue  
+                p A Knee Man 
+            a(href="/profile") Профиль
+            a(href="/catalogue") Каталог  
         main
             div(id="meta")
-                img(src="/images/" + anime.name + ".jpg") 
+                img(src=anime.imageUrl) 
                 div 
                     h1= anime.name 
                     div(id="description")
-                        h3 Description 
+                        h3 Описание 
                         p= anime.description 
 
                     div(id="buttons")
                         form(action="/catalogue/" + animeID + "/like", method="post") 
-                            input(type="submit", value="Like")
+                            input(type="submit", value="Нравится")
 
                         form(action="/catalogue/" + animeID + "/planning", method="post") 
-                            input(type="submit", value="Plan to Watch")
+                            input(type="submit", value="Планирую посмотреть")
 
             ul 
                 each val in anime.episodes 
                     li 
-                        a(href="/catalogue/" + animeID + "/" + val._id)= `Season ${val.season}  Episode ${val.number}`
+                        a(href="/catalogue/" + animeID + "/" + val._id)= val.season + " Сезон\n" + val.number + " Серия"

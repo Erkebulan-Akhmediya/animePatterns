@@ -23,9 +23,7 @@ ol {
 
 li {
     margin: 20px;
-    /* padding: 10px; */
     border-radius: 10px;
-    /* background-color: white; */
     transition: .5s;
 }
 
@@ -68,7 +66,6 @@ main {
 }
 
 body {
-    /* background-image: url('https://wallpapers.com/images/hd/cat-art-minimalist-cat-with-scarf-9xsp01c2qd97kzoz.jpg'); */
     background-color: black;
     padding: 0px;
     margin: 0px;

@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express'
 import Anime, { episodeModel } from '../models/Anime'
-import fs from 'fs'
 import userController from './userController'
 
 const AdminRouter = express.Router()
@@ -27,7 +26,6 @@ class adminController {
 
     public async postAddAnime(req: Request, res: Response) {
         try {
-            fs.mkdirSync(`./episodes/${req.body.name}`)
             await Anime.create({
                 name: req.body.name, 
                 description: req.body.description,
@@ -53,13 +51,10 @@ class adminController {
             const animeID: any = req.params.id
             const anime = await Anime.findOne({ _id: animeID })
         
-            
-            if (anime?.name != req.body.name) {
-                fs.renameSync(`./episodes/${anime?.name}`, `./episodes/${req.body.name}`)
-            } 
             await Anime.findOneAndUpdate({ _id: animeID }, {
                 name: req.body.name, 
                 description: req.body.description,
+                imageUrl: req.body.image,
             })
 
             res.redirect('/admin')
@@ -74,6 +69,7 @@ class adminController {
             episodes: new episodeModel({
                 number: req.body.episodeNumber,
                 season: req.body.seasonNumber,
+                url: req.body.episodeUrl,
             }),
         } })
         res.redirect('/admin/update/' + req.params.id)
@@ -81,9 +77,7 @@ class adminController {
 
     public async deleteEpisode(req: Request, res: Response) {
         await Anime.findOneAndUpdate({ _id: req.params.id }, { $pull: {
-            episodes: {
-                _id: req.params.episodeID,
-            },
+            episodes: { _id: req.params.episodeID },
         } })
         res.redirect('/admin/update/' + req.params.id)
     }
@@ -93,7 +87,6 @@ class adminController {
         const anime = await Anime.findOne({ _id: animeID })
     
         await Anime.findByIdAndRemove({ _id: anime?._id })
-        fs.rmSync(`episodes/${anime?.name}`, { recursive: true, force: true })
         res.redirect('/admin')
     }
 

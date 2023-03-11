@@ -18,7 +18,7 @@ class animeController {
     constructor() { }
     catalogue(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            res.render('catalogue', { anime: yield Anime_1.default.find({}, { name: 1, price: 1 }) });
+            res.render('catalogue', { anime: yield Anime_1.default.find({}) });
         });
     }
     anime(req, res) {

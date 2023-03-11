@@ -9,25 +9,25 @@ html(lang="en")
     body 
         header 
             strong 
-                p Anime Patterns 
-            a(href="/profile") Profile 
-            a(href="/catalogue") Catalogue  
-            a(href="/logout") Log Out
+                p A Knee Man 
+            a(href="/profile") Профиль
+            a(href="/catalogue") Каталог  
+            a(href="/logout") Выйти
         main 
             h1= user.firstName + " " + user.lastName 
             div
-                h3 Planning to Watch 
+                h3 Планирую смотреть 
                 ul
                     each val in planning 
                         li
                             a(href="/catalogue/" + val._id)= val.name
                             form(action="/catalogue/" + val._id + "/planning/remove", method="post") 
-                                input(type="submit", value="Remove")
+                                input(type="submit", value="Удалить")
             div
-                h3 List of Liked Anime 
+                h3 Понравившиеся 
                 ul 
                     each val in liked 
                         li 
                             a(href="/catalogue/" + val._id)= val.name  
                             form(action="/catalogue/" + val._id + "/like/remove", method="post")
-                                input(type="submit", value="Remove") 
+                                input(type="submit", value="Удалить") 
