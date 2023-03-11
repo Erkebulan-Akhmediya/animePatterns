@@ -37,7 +37,7 @@ MainRouter.get('/profile', auth_1.default, (req, res) => __awaiter(void 0, void 
     });
 }));
 MainRouter.get('/', (req, res) => {
-    res.render('welcome');
+    res.redirect('/catalogue');
 });
 MainRouter.get('/logout', (req, res) => {
     res.clearCookie('token');

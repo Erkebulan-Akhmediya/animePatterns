@@ -30,7 +30,7 @@ MainRouter.get('/profile', auth, async(req: Request, res: Response) => {
 })
 
 MainRouter.get('/', (req: Request, res: Response) => {
-    res.render('welcome')
+    res.redirect('/catalogue')
 })
 
 MainRouter.get('/logout', (req: Request, res: Response) => {
