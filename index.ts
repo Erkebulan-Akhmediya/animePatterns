@@ -17,12 +17,12 @@ app.addRouter('/', MainRouter)
 app.addRouter('/', AuthRouter)
 app.addRouter('/catalogue', AnimeRouter)
 
-async function start(): Promise<any> {
+async function start(): Promise<void> {
     try {
         await mongoose.connect(connectionUrl)
         app.listen(port)
-    } catch {
-        console.log('db connection failed')
+    } catch (e) {
+        console.error('Startup failed', e)
     }
 }
 
