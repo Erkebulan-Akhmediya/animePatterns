@@ -3,7 +3,7 @@ import express from 'express'
 
 class App {
     private app: express.Application
-    private instance: App
+    private static instance: App
 
     private constructor() {
         this.app = express()
@@ -16,10 +16,9 @@ class App {
     }
 
     public static createApp() {
-        if (this.instance == null) {
-            this.instance = new App()
-        }
-        return this.instance
+        if (!App.instance)
+            App.instance = new App()
+        return App.instance
     }
 
     public addRouter(path: string, router: express.Router): void {
