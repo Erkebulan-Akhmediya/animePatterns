@@ -11,7 +11,7 @@ function adminAuth(req: Request, res: Response, next: NextFunction) {
     }
     
     try {
-        console.log(jwt.verify(adminToken, secret))
+        jwt.verify(adminToken, secret)
     } catch {
         res.redirect('/sign-in')
         return
