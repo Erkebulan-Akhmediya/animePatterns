@@ -1,26 +1,24 @@
 import express, { Request, Response } from 'express'
 import Users from '../models/Users'
 import auth from '../middleware/auth'
-import fs from 'fs'
 import Anime from '../models/Anime'
+import {Types} from 'mongoose'
 
 const MainRouter = express.Router()
 
-MainRouter.get('/profile', auth, async(req: Request, res: Response) => {
-    const cart = await Users.find({ _id: req.body.user.id }, { planning: 1, liked: 1 })
-    console.log(cart)
+MainRouter.get('/profile', auth, async (req: Request, res: Response) => {
+    const user = await Users.findById(req.body.user.id, { planning: 1, liked: 1 })
 
-    const planning = []
-    for (let i = 0; i < cart[0].planning.length; i++) {
-        let temp = await Anime.findOne({ _id: cart[0].planning[i] })
-        planning.push(temp)
+    if (user === null) {
+        res.status(500).send('User not found')
+        return
     }
 
-    const liked = []
-    for (let i = 0; i < cart[0].liked.length; i++) {
-        let temp = await Anime.findOne({ _id: cart[0].liked[i] })
-        liked.push(temp)
-    }
+    const planningObjectIds = user.planning.map(id => new Types.ObjectId(id))
+    const planning = await Anime.find({ _id: { $in: planningObjectIds } })
+
+    const likedObjectIds = user.liked.map(id => new Types.ObjectId(id))
+    const liked = await Anime.find({ _id: { $in: likedObjectIds } })
 
     res.render('profile', { 
         user: req.body.user, 
