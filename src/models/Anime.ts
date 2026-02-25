@@ -37,4 +37,6 @@ export const animeSchema = new Schema<IAnime>({
     imageUrl: String,
 })
 
+animeSchema.index({ "episodes._id": 1 })
+
 export default model<IAnime>('Anime', animeSchema)
