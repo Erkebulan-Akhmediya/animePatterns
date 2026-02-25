@@ -1,7 +1,7 @@
 import cookieParser from 'cookie-parser'
 import express from 'express'
 
-class App {
+export default class App {
     private app: express.Application
     private static instance: App
 
@@ -29,5 +29,3 @@ class App {
         this.app.listen(port)
     }
 }
-
-export default App
