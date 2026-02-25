@@ -8,7 +8,7 @@ class App {
     private constructor() {
         this.app = express()
 
-        this.app.set('views', './views')
+        this.app.set('views', './src/views')
         this.app.set('view engine', 'pug')
         this.app.use(express.static('public'))
         this.app.use(express.urlencoded({ extended: true }))

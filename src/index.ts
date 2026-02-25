@@ -21,8 +21,9 @@ async function start(): Promise<void> {
     try {
         await mongoose.connect(connectionUrl)
         app.listen(port)
+        console.log('Server started on port:', port)
     } catch (e) {
-        console.error('Startup failed', e)
+        console.error('Startup failed:', e)
     }
 }
 
