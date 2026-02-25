@@ -19,6 +19,7 @@ app.addRouter('/catalogue', AnimeRouter)
 
 async function start(): Promise<void> {
     try {
+        mongoose.set('strictQuery', true)
         await mongoose.connect(connectionUrl)
         app.listen(port)
         console.log('Server started on port:', port)
