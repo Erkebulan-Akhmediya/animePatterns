@@ -1,8 +1,6 @@
-import express, { Request, Response } from 'express'
+import { Request, Response } from 'express'
 import Anime, { episodeModel } from '../models/Anime'
 import userController from './userController'
-
-const AdminRouter = express.Router()
 
 class adminController {
     private static controller: userController 
@@ -49,7 +47,6 @@ class adminController {
     public async postUpdateAnime(req: Request, res: Response) {
         try {
             const animeID: any = req.params.id
-            const anime = await Anime.findOne({ _id: animeID })
         
             await Anime.findOneAndUpdate({ _id: animeID }, {
                 name: req.body.name, 
@@ -91,19 +88,19 @@ class adminController {
     }
 
     public async users(req: Request, res: Response) {
-        adminController.controller.users(req, res)
+        await adminController.controller.users(req, res)
     }
 
     public async deleteUser(req: Request, res: Response) {
-        adminController.controller.deleteUser(req, res)
+        await adminController.controller.deleteUser(req, res)
     }
 
     public async getUpdateUser(req: Request, res: Response) {
-        adminController.controller.getUpdateUser(req, res)
+        await adminController.controller.getUpdateUser(req, res)
     }
 
     public async postUpdateUser(req: Request, res: Response) {
-        adminController.controller.postUpdateUser(req, res)
+        await adminController.controller.postUpdateUser(req, res)
     }
 }
 
